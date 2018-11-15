@@ -104,6 +104,11 @@
     font-size: 1.625rem;
   }
 
+  /* Yourself Block */
+  .yourself-block{
+    display: none;
+  }
+
   /* Join Block */
   .join-block h1 {
     font-size: 3.5rem;
@@ -184,18 +189,24 @@
     width: 153px;
   }
   .next {
-    right: -135px;
+    right: -71px;
   }
   .prev {
-    left: -145px;
+    left: -91px;
   }
   .next, .prev {
     top: 65px;
   }
   .iphone-block-arrow__right,
   .iphone-block-arrow__left {
-    padding: 26px 30px;
-    height: 40px;
+    padding: 20px 20px;
+    height: 6px;
+  }
+  .iphone-block-arrow__right{
+
+    .arrow.right {
+      right: 11px;
+    }
   }
 }
 @media only screen and (min-width: 480px) and (max-width: 767.98px){
@@ -300,20 +311,25 @@
     width: 222px;
   }
   .next {
-    right: -140px;
+    right: -105px;
   }
   .prev {
-    left: -160px;
+    left: -115px;
   }
   .next, .prev {
     top: 120px;
   }
   .iphone-block-arrow__right,
   .iphone-block-arrow__left{
-    padding: 26px 30px;
+    padding: 26px 28px;
     height: 40px;
   }
+  .iphone-block-arrow__right{
 
+    .arrow.right {
+      right: 17px;
+    }
+  }
   .ipad-block {
 
     &-slide {
@@ -418,7 +434,7 @@
 
   /* Platform Block */
   .platform-block {
-    margin-top: 120px;
+    margin-top: 10px;
 
     &-features__content-txt {
       padding-right: 30px;

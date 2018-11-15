@@ -1,6 +1,8 @@
 $(document).ready(function () {
     (function() {
-        var swInstance = new ScrollWatch({});
+        var swInstance = new ScrollWatch({
+            watchOnce: true
+        });
     })();
 
     /* iPhone Slider */

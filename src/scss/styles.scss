@@ -326,10 +326,11 @@ body{
       color: rgb(35, 35, 35);
       text-transform: uppercase;
       line-height: 1.2;
-      text-decoration: none;
+
     }
     &__link:hover{
       color: #4e4e4e;
+      text-decoration: none;
     }
   }
 
@@ -384,7 +385,7 @@ body{
         transition: 0.3s;
       }
       &-link:hover{
-        background-color: #19d9d9;
+        background-color: #16c3c3;
         text-decoration: none;
         color: rgb(0, 0, 0);
       }
@@ -434,6 +435,7 @@ body{
     font-size: 0.75rem;
     font-weight: bolder;
     text-transform: uppercase;
+    text-align: center;
   }
   &-subtitle{
     font-family: Montserrat-Light;
@@ -591,6 +593,11 @@ body{
       background-color: #26e6e6;
       border-radius: 30px;
       margin: 45px 0;
+      transition: 0.3s;
+    }
+    a:hover{
+      background-color: #16c3c3;
+      color: #000;
     }
   }
   &-pro{
@@ -598,11 +605,17 @@ body{
     a{
       margin: 66px;
     }
+    a:hover{
+      color: #4e4e4e;;
+    }
   }
   &-begginer{
 
     a{
       margin: 42px;
+    }
+    a:hover{
+      color: #4e4e4e;;
     }
   }
 }
@@ -677,6 +690,9 @@ footer{
           color: #262626;
           text-decoration: none;
           margin-bottom: 10px;
+        }
+        a:hover{
+          color: #f2f2f2;
         }
       }
     }
