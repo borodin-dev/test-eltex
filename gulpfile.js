@@ -1,8 +1,8 @@
 // Подключаем Gulp
-var gulp = require("gulp");
+let gulp = require("gulp");
 // Подключаем плагины Gulp
-var sass = require("gulp-sass"), // переводит SASS в CSS
-    cssnano = require("gulp-cssnano"), // Минимизация CSS
+let sass = require("gulp-sass"), // переводит SASS в CSS
+    cleanCSS = require('gulp-clean-css'), // Минимизация CSS
     autoprefixer = require('gulp-autoprefixer'), // Проставлет вендорные префиксы в CSS для поддержки старых браузеров
     imagemin = require('gulp-imagemin'), // Сжатие изображений
     concat = require("gulp-concat"), // Объединение файлов - конкатенация
@@ -12,47 +12,44 @@ var sass = require("gulp-sass"), // переводит SASS в CSS
 
 
 // Создаем простой таск
-gulp.task('myFirstTask', function() {
+gulp.task('myFirstTask', async function() {
     console.log('Привет, я твой первый таск!');
 });
 
 // Запуск тасков по умолчанию
-gulp.task("default", ["myFirstTask"]);
+// gulp.task("default", gulp.series("myFirstTask"));
 
-
-// Копирование файлов HTML в папку dist
+//
+// // Копирование файлов HTML в папку dist
 gulp.task("fonts", function() {
     return gulp.src("src/fonts/**/*.+(eot|otf|ttf|woff|woff2)")
         .pipe(gulp.dest("dist/fonts"));
 });
-
+//
 gulp.task("icons", function() {
     return gulp.src("src/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.*")
         .pipe(gulp.dest("dist/fonts/fonts"));
 });
-
-// Копирование файлов HTML в папку dist
+//
+// // Копирование файлов HTML в папку dist
 gulp.task("html", function() {
     return gulp.src("src/*.html")
         .pipe(gulp.dest("dist"));
 });
-
-// Объединение, компиляция Sass в CSS, простановка венд. префиксов и дальнейшая минимизация кода
+//
+// // Объединение, компиляция Sass в CSS, простановка венд. префиксов и дальнейшая минимизация кода
 gulp.task("sass", function() {
     return gulp.src(['src/scss/*.scss', ])
         .pipe(concat('styles.scss'))
         .pipe(sass())
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
-            cascade: false
-        }))
-        .pipe(cssnano())
+        .pipe(autoprefixer('last 2 versions'))
+        .pipe(cleanCSS())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest("dist/css"))
         .pipe(browserSync.stream(true));
 });
-
-// Объединение и сжатие JS-файлов
+//
+// // Объединение и сжатие JS-файлов
 gulp.task("scripts", function() {
     return gulp.src([
         "node_modules/jquery/dist/jquery.js",
@@ -65,8 +62,8 @@ gulp.task("scripts", function() {
         .pipe(rename({ suffix: '.min' })) // вызов плагина rename - переименование файла с приставкой .min
         .pipe(gulp.dest("dist/js")); // директория продакшена, т.е. куда сложить готовый файл
 });
-
-// Сжимаем картинки
+//
+// // Сжимаем картинки
 gulp.task('imgs', function() {
     return gulp.src("src/images/**/*.+(jpg|jpeg|png|gif)")
         .pipe(imagemin({
@@ -76,7 +73,7 @@ gulp.task('imgs', function() {
         }))
         .pipe(gulp.dest("dist/images"))
 });
-
+//
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
@@ -90,14 +87,24 @@ gulp.task('browser-sync', function() {
     gulp.watch("src/scss/*.scss", ['sass']);
     gulp.watch("src/*.html").on('change', browserSync.reload);
 });
+//
+// // Задача слежения за измененными файлами
+// gulp.task("watch", function() {
+//     gulp.watch("src/*.html", ["html"]);
+//     gulp.watch("src/js/*.js", ["scripts"]);
+//     gulp.watch("src/scss/*.scss", ["sass"]);
+//     gulp.watch("src/images/*.+(jpg|jpeg|png|gif)", ["imgs"]);
+// });
+//
+// // Запуск тасков по умолчанию
+// gulp.task("default", ["html", "sass", "scripts", "imgs", "fonts", "icons", "watch", "browser-sync"]);
 
-// Задача слежения за измененными файлами
+
+
 gulp.task("watch", function() {
-    gulp.watch("src/*.html", ["html"]);
-    gulp.watch("src/js/*.js", ["scripts"]);
-    gulp.watch("src/scss/*.scss", ["sass"]);
-    gulp.watch("src/images/*.+(jpg|jpeg|png|gif)", ["imgs"]);
+    gulp.watch("src/*.html", gulp.series('html'));
+    gulp.watch("src/js/*.js", gulp.series('scripts'));
+    gulp.watch("src/scss/*.scss", gulp.series('sass'));
+    gulp.watch("src/images/*.+(jpg|jpeg|png|gif)", gulp.series('imgs'));
 });
-
-// Запуск тасков по умолчанию
-gulp.task("default", ["html", "sass", "scripts", "imgs", "fonts", "icons", "watch", "browser-sync"]);
+gulp.task("default", gulp.series("html", "sass", "scripts", "imgs", "fonts", "myFirstTask", "icons", "watch", "browser-sync"));
