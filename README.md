@@ -1,5 +1,8 @@
+
 # test-eltex
 test task for company Eltex Soft
+
+gulp 4
 
 To run project open terminal in your project's folder and type
 ```sh
@@ -10,4 +13,6 @@ and than type
 ```sh
 $ gulp
 ```
+
+or you can check it live on [Firebase App](https://test-eltex.firebaseapp.com)
 
