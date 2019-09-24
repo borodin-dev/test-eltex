@@ -64,5 +64,12 @@ node_modules/
 # dotenv environment variables file
 .env
 
-#Other folders
+#Other folders and files
 dist/
+.idea/
+.DS_Store
+*/.DS_Store
+.DS_Store?
+.Trashes
+ehthumbs.db
+Thumbs.db
